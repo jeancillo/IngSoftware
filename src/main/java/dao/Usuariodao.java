@@ -8,7 +8,7 @@ import modelo.Usuario;
 
 public class Usuariodao {
 
-    public static final String SQL_VALIDAR = "select * from usuario where user=? and password=?";
+    public static final String SQL_VALIDAR = "select * from usuario where user=? and password=? and estado='A'";
     public static final String SQL_LISTAR="select * from usuario";
 
     public static Usuario validar(String user, String pass) {

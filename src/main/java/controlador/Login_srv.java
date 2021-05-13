@@ -29,18 +29,15 @@ public class Login_srv extends HttpServlet {
           Usuario us = Usuariodao.validar(user, pass);
           if(us!=null){
               System.out.println(us.getEstado());
-              if(us.getEstado().equals("A")){
                HttpSession session = request.getSession();
                session.setAttribute("us", us);
                response.sendRedirect("principal.jsp");   
-              }else{
-                request.getRequestDispatcher("Error_srv").forward(request, response);  
-              }
           }else{
-              request.getRequestDispatcher("Error_srv").forward(request, response);
+              request.setAttribute("msg", "Usuario y/o Contraseña incorrecta");
+              request.getRequestDispatcher("index.jsp").forward(request, response);
           }
       }else{
-           request.getRequestDispatcher("Error_srv").forward(request, response);
+           request.getRequestDispatcher("index.jsp").forward(request, response);
       }
         
     }

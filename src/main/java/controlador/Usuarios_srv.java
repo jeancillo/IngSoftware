@@ -87,7 +87,6 @@ public class Usuarios_srv extends HttpServlet {
                 case "Estado":
                     id = Integer.parseInt(request.getParameter("id"));
                     Usuario valEs = Usuariodao.listarUsuarioXId(id);
-                    System.out.print(valEs.getEstado());
                     String estado = valEs.getEstado();
                     if (estado.equals("A")) {
                         Usuariodao.desconectarUsuario(id);
@@ -107,7 +106,6 @@ public class Usuarios_srv extends HttpServlet {
             }
             request.getRequestDispatcher("usuarios.jsp").forward(request, response);
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

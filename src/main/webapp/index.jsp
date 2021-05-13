@@ -6,7 +6,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Clean Login Form a Flat Responsive Widget Template :: w3layouts</title>
+        <title>VILLA FLASH NET</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="keywords" content="Clean Login Form Responsive, Login Form Web Template, Flat Pricing Tables, Flat Drop-Downs, Sign-Up Web Templates, Flat Web Templates, Login Sign-up Responsive Web Template, Smartphone Compatible Web Template, Free Web Designs for Nokia, Samsung, LG, Sony Ericsson, Motorola Web Design" />
@@ -21,6 +21,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <!-- online fonts -->
 
     <body>
+        <%String msg = (String) request.getAttribute("msg");%>
+
         <div class="container demo-1">
             <div class="content">
                 <div id="large-header" class="large-header">
@@ -43,9 +45,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                     </div>
                                 </div>
                                 <div class="clear"></div>
-                                <p class="p-bottom-w3ls">Forgot Password?<a class href="#">  Click here</a></p>
-                                <p class="p-bottom-w3ls1">New User?<a class href="#">  Register here</a></p>
+                                <p class="p-bottom-w3ls"><a class href="#"></a></p>
+                                <p class="p-bottom-w3ls1"><a class href="#"></a></p>
                                 <div class="clear"></div>
+                                <div>
+                                    <label style="font-size: 12px; color: red">
+                                        <!--- mensaje  de error-->
+                                        <span class="msg"><%=msg != null ? msg : ""%></span>
+                                    </label>  
+                                </div>
                                 <div class="submit-w3l">
                                     <input type="submit" name="accion" value="Login">
                                 </div>

@@ -606,6 +606,16 @@ top: 9%;
 	background: none;
 	border: 1px solid #353535;
 }
+.login_panel form select{
+    width:360px;
+	font-size:0.8em;
+	color:#666;
+	padding:8px;
+	outline:none;
+	margin:5px 0;
+	background: none;
+	border: 1px solid #353535;
+}
 .register_account form input[type="text"].code{
 	width:15%;
 }

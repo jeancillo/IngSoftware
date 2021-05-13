@@ -11,9 +11,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE HTML>
 <html>
     <head>
-        <title>Free Retail Hosting Website Template | Home :: w3layouts</title>
+        <title>VILLA FLASH NET</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link href="css/style_1.css" rel="stylesheet" type="text/css" media="all"/>
         <link href='//fonts.googleapis.com/css?family=Electrolize' rel='stylesheet' type='text/css'>
         <script type="text/javascript" src="js/jquery.min.js"></script>
@@ -53,25 +54,26 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             HttpSession s = request.getSession();
             Usuario us = (Usuario) s.getAttribute("us");
             if (us == null) {
-                response.sendRedirect("Error_srv");
+                response.sendRedirect("index.jsp");
             }%><%else {
-                    
-                Personal p = Personaldao.listarPersonalXId(us.getIdPersonal());
+
+                    Personal p = Personaldao.listarPersonalXId(us.getIdPersonal());
         %>
         <div class="header">
             <div class="header_top">
                 <div class="wrap">		
                     <div class="logo">
-                        <a href="index.html"><img src="images/villa flash.png" alt="" /></a>
+                        <a href="principal.jsp"><img src="images/villa flash.png" alt="" /></a>
                     </div>	
                     <div class="menu">
                         <ul>
-                            <li class="active"><a href="Login_srv">Home</a></li>
-                            <li><a href="domains.html">Domains</a></li>
-                            <li><a href="Usuarios_srv">Hosting</a></li>
-                            <li><a href="support.html">Support</a></li>
-                            <li><a href="contact.html">Contact</a></li>
+                            <li class="active"><a href="principal.jsp">Home</a></li>
+                            <li><a href="#">Domains</a></li>
+                            <li><a href="Usuarios_srv?menu=Usuarios&accion=Listar">Usuarios</a></li>
+                            <li><a href="#">Support</a></li>
+                            <li><a href="#">Contact</a></li>
                             <li><a href="CerrarSesion_srv">Cerrar Sesion</a></li>
+                            
                             <div class="clear"></div>
                         </ul>
                     </div>
@@ -85,12 +87,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         </div>
 
         <div class="main">
-           
+
             <div class="content_data">
                 <div class="content">     		
                     <div class="services_heading">
-                        <h2>Our Services</h2>
-                        <p>Lorem Ipsum has been the industry's standard dummy text</p>
+                        <h2>BIENVENIDO</h2>
+                        <p><%=p.getNombre()%> <%=p.getApellido()%></p>
                     </div>
                     <div class="wrap">
                         <div class="services">
@@ -169,9 +171,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             </div>    
         </div>
         <div class="copy_right">
-            <p> &copy; 2013 Retail_hosting. All rights reserved | Design by <a href="http://w3layouts.com/">W3layouts</a></p>
+            <p> &copy; 2013 Retail_hosting. All rights reserved |  <%=p.getNombre()%> <%=p.getApellido()%> <a href="CerrarSesion_srv">Salir</a></p>
         </div>
         <%}
         %>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     </body>
 </html>

@@ -31,7 +31,6 @@ public class Error_srv extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Error al iniciar Sesion</h1>");
-            out.println("<h1>Usuario Incorrecto y/o Inactivo</h1>");
             out.println("<a href='index.jsp'>Volver</a>");
             out.println("</body>");
             out.println("</html>");

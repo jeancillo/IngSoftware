@@ -1,20 +1,52 @@
-<%-- 
-    Document   : principal
-    Created on : 5 may. 2021, 11:16:55
-    Author     : PIERO
---%>
-
 <%@page import="dao.Personaldao"%>
 <%@page import="modelo.Personal"%>
 <%@page import="modelo.Usuario"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@page import="modelo.Usuario"%>
+<!--A Design by W3layouts
+Author: W3layout
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-        <link href=WEB-INF/css/style.css rel="stylesheet" >
-        <title>JSP Page</title>
+        <title>Free Retail Hosting Website Template | Home :: w3layouts</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link href="css/style_1.css" rel="stylesheet" type="text/css" media="all"/>
+        <link href='//fonts.googleapis.com/css?family=Electrolize' rel='stylesheet' type='text/css'>
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="js/modernizr.custom.28468.js"></script>
+
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $(".scroll").click(function (event) {
+                    event.preventDefault();
+                    $('html,body').animate({scrollTop: $(this.hash).offset().top}, 1200);
+                });
+            });
+        </script>
+        <script src="js/responsiveslides.min.js"></script>
+        <script>
+// You can also use "$(window).load(function() {"
+            $(function () {
+// Slideshow 4
+                $("#slider3").responsiveSlides({
+                    auto: true,
+                    pager: false,
+                    nav: false,
+                    speed: 500,
+                    namespace: "callbacks",
+                    before: function () {
+                        $('.events').append("<li>before event fired.</li>");
+                    },
+                    after: function () {
+                        $('.events').append("<li>after event fired.</li>");
+                    }
+                });
+            });
+        </script>
     </head>
     <body>
         <%
@@ -26,54 +58,120 @@
                     
                 Personal p = Personaldao.listarPersonalXId(us.getIdPersonal());
         %>
-        <div class="container-fluid">
-            <div class="row min-vh-100 flex-column flex-md-row">
-                <aside class="col-12 col-md-3 col-xl-2 p-0 bg-dark flex-shrink-1">
-                    <nav class="navbar navbar-expand-md navbar-dark bd-dark flex-md-column flex-row align-items-center py-2 text-center sticky-top" id="sidebar">
-                        <div class="text-center p-3">
-                            <img src="imagenes/<%=p.getImg()%>" alt="profile picture" class="img-fluid rounded-circle my-4 p-1 d-none d-md-block shadow">
+        <div class="header">
+            <div class="header_top">
+                <div class="wrap">		
+                    <div class="logo">
+                        <a href="index.html"><img src="images/villa flash.png" alt="" /></a>
+                    </div>	
+                    <div class="menu">
+                        <ul>
+                            <li class="active"><a href="Login_srv">Home</a></li>
+                            <li><a href="domains.html">Domains</a></li>
+                            <li><a href="Usuarios_srv">Hosting</a></li>
+                            <li><a href="support.html">Support</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                            <li><a href="CerrarSesion_srv">Cerrar Sesion</a></li>
+                            <div class="clear"></div>
+                        </ul>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="header_bottom">
 
-                            <a href="#" class="navbar-brand mx-0 font-weight-bold text-nowrap">Bienvenido <%=us.getUser()%></a>
-                        </div>
-                        <button type="button" class="navbar-toggler border-0 order-1" data-toggler="collapse" data-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>    
-                        </button>
-                        <div class="collapse navbar-collapse prder-last" id="nav">
-                            <ul class="navbar-nav flex-column w-100 justify-content-center">
-                                <li class="nav-item">
-                                    <a href="Usuarios_srv?menu=Usuarios&accion=Listar" class="nav-link active" target="myFrame">Usuarios</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="" class="nav-link active">Edit Profile</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="" class="nav-link active">Edit Profile</a>
-                                </li>
-                                <li class="nav-item">
-                                     <a href="CerrarSesion_srv" class="nav-link active">Cerrar Sesion</a>
-                                </li>
-                            </ul>
-                            <ul class="nav justify-content-center">
-                                <li class="nav-item">
-                                   
-                                </li>    
-                            </ul>
-                        </div>
-                    </nav> 
-                </aside>    
-                <div class="col px-0 flex-grow-1  " style="height: 650px;">
-                    <iframe  name="myFrame" style="height: 100%;width: 100%; border: none">
-                    </iframe>
-                </div>      
-
+                <div class="clear"></div>
             </div>
         </div>
 
+        <div class="main">
+           
+            <div class="content_data">
+                <div class="content">     		
+                    <div class="services_heading">
+                        <h2>Our Services</h2>
+                        <p>Lorem Ipsum has been the industry's standard dummy text</p>
+                    </div>
+                    <div class="wrap">
+                        <div class="services">
+                            <div class="services_list">
+                                <div class="services_grid1">	
+                                    <div class="services_img">
+                                        <img src="images/service_1.png" alt="" />
+                                    </div>
+                                    <div class="services_desc">
+                                        <h4>Free Email Account</h4>
+                                        <p>simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting.</p>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="services_grid2">	
+                                    <div class="services_img">
+                                        <img src="images/service_2.png" alt="" />
+                                    </div>
+                                    <div class="services_desc">
+                                        <h4>Privacy Protection</h4>
+                                        <p>simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting.</p>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="services_list">
+                                <div class="services_grid1">	
+                                    <div class="services_img">
+                                        <img src="images/service_3.png" alt="" />
+                                    </div>
+                                    <div class="services_desc">
+                                        <h4>24x7 Live Support</h4>
+                                        <p>simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting</p>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="services_grid2">	
+                                    <div class="services_img">
+                                        <img src="images/service_4.png" alt="" />
+                                    </div>
+                                    <div class="services_desc">
+                                        <h4>Domain Forwarding</h4>
+                                        <p>simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting</p>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="services_list">
+                                <div class="services_grid1">	
+                                    <div class="services_img">
+                                        <img src="images/service_5.png" alt="" />
+                                    </div>
+                                    <div class="services_desc">
+                                        <h4>Bulk Tools</h4>
+                                        <p>simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting.</p>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="services_grid2">	
+                                    <div class="services_img">
+                                        <img src="images/service_6.png" alt="" />
+                                    </div>
+                                    <div class="services_desc">
+                                        <h4>Easy to use Control Panel</h4>
+                                        <p>simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting.</p>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                    </div>    	
+                </div>
+            </div>    
+        </div>
+        <div class="copy_right">
+            <p> &copy; 2013 Retail_hosting. All rights reserved | Design by <a href="http://w3layouts.com/">W3layouts</a></p>
+        </div>
         <%}
         %>
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
     </body>
 </html>

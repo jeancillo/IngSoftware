@@ -23,7 +23,7 @@ public class Login_srv extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
       String accion = request.getParameter("accion");
-      if(accion.equals("Ingresar")){
+      if(accion.equals("Login")){
           String user = request.getParameter("user");
           String pass = request.getParameter("pass");
           Usuario us = Usuariodao.validar(user, pass);

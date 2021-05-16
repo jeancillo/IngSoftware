@@ -1,18 +1,20 @@
 
 package modelo;
 
+import java.io.InputStream;
+
 public class Personal {
     private int idPersonal;
     private String nombre;
     private String apellido;
     private String dni;
-    private String img;
+    private InputStream img;
 
-    public String getImg() {
+    public InputStream getImg() {
         return img;
     }
 
-    public void setImg(String img) {
+    public void setImg(InputStream img) {
         this.img = img;
     }
 

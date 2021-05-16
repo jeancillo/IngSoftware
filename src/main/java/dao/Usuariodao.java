@@ -88,6 +88,31 @@ public class Usuariodao {
            
         return u;
     }
+    public static Usuario listarUsuarioXIdPersonal(int id){
+        Connection cn = conexion.conexion.abrir();
+        Usuario u=null;
+        try{
+            PreparedStatement stm =   cn.prepareStatement("select * from usuario where idPersonal=?");
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            while(rs.next()){
+                u = new Usuario();
+                u.setIdUsuario(rs.getInt("idUsuario"));
+                u.setUser(rs.getString("user"));
+                u.setPassword(rs.getString("password"));
+                u.setIdPersonal(rs.getInt("idPersonal"));
+                u.setIdTipoUser(rs.getInt("idTipoUser"));
+                u.setEstado(rs.getString("estado"));
+            }
+            cn.close();
+            stm.close();
+            rs.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+           
+        return u;
+    }
     public static void insertarUsuario(Usuario us) {
         String sql = "insert into usuario (user,password,idPersonal,idTipoUser,estado)values(?,?,?,?,'A')";
         Connection cn = conexion.conexion.abrir();
@@ -105,15 +130,13 @@ public class Usuariodao {
         }
     }
     public static void guardarUsuario(Usuario us) {
-        String sql = "update usuario set user=?,password=?,idPersonal=?,idTipoUser=? where idUsuario=?";
+        String sql = "update usuario set user=?,password=? where idUsuario=?";
         Connection cn = conexion.conexion.abrir();
         try {
             PreparedStatement stm=cn.prepareStatement(sql);
             stm.setString(1,us.getUser());
             stm.setString(2, us.getPassword());
-            stm.setInt(3, us.getIdPersonal());
-            stm.setInt(4, us.getIdTipoUser());
-            stm.setInt(5, us.getIdUsuario());
+            stm.setInt(3, us.getIdUsuario());
             stm.executeUpdate();
             cn.close();
             stm.close();
@@ -122,7 +145,7 @@ public class Usuariodao {
         }
     }
      public static void deleteUsuario(int id) {
-        String sql = "delete from usuario where idUsuario=?";
+        String sql = "delete from usuario where idPersonal=?";
         Connection cn = conexion.conexion.abrir();
         try {
             PreparedStatement stm=cn.prepareStatement(sql);

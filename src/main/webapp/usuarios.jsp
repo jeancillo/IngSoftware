@@ -38,6 +38,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             }%><%else {
 
                     Personal p = Personaldao.listarPersonalXId(us.getIdPersonal());
+                    Usuario uEdit = (Usuario) request.getAttribute("usuario");
+                    ArrayList<Usuario> lista = (ArrayList)request.getAttribute("user");
         %>
         <div class="header">
             <div class="header_top">
@@ -48,7 +50,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <div class="menu">
                         <ul>
                             <li><a href="principal.jsp">Home</a></li>
-                            <li><a href="#">Domains</a></li>
+                            <li><a href="Personal_srv?menu=Personal&accion=Listar">Personal</a></li>
                             <li class="active"><a href="Usuarios_srv?menu=Usuarios&accion=Listar">Usuarios</a></li>
                             <li><a href="#">Support</a></li>
                             <li><a href="#">Contact</a></li>
@@ -60,6 +62,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 </div>
             </div>
         </div>
+        <%if(uEdit==null){%>
         <div class="content_bottom" id="account">
             <div class="wrap">
                 <div class="register_account">
@@ -91,6 +94,28 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             </div>              
             <div class="clear"></div>
         </div>
+        <%}else{%>
+        <div class="content_bottom" id="account">
+            <div class="wrap">
+                <div class="register_account">
+                    <h3>Registro</h3>
+                    <p>Registrar nuevo usuario</p>
+                    <form action="Usuarios_srv?menu=Usuarios" method="POST"> 
+                        <input name="us" type="text" placeholder="Username" class="field" value="${usuario.getUser()}" required>
+                        <input name="pas" type="text" placeholder="Password" class="field" value="${usuario.getPassword()}"required> 
+                        <div class="login"><input type="submit" name="accion" value="Actualizar"></div>
+                        <div>
+                            <label style="font-size: 12px; color: red">
+                                <!--- mensaje  de error-->
+                                <span class="msg"><%=msg != null ? msg : ""%></span>
+                            </label>  
+                        </div>
+                    </form>
+                </div>
+            </div>              
+            <div class="clear"></div>
+        </div>
+        <%}%>
         <div class="main">
             <div class="wrap">
                 <div class="plans">
@@ -103,6 +128,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                     <th class="plans-list"><h3>Tipo</h3></th>
                                     <th class="plans-list"><h3>Estado</h3></th>
                                     <th class="plans-list"><h3>Acciones</h3></th>
+                                    
                                 </tr>
                             </thead>		
                             <tbody>
@@ -112,9 +138,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                         <td class="price_body">${us.getIdTipoUser()}</td>
                                         <td class="price_body">${us.getEstado()}</td>
                                         <td>
-                                            <a class="btn btn-warning" href="Usuarios_srv?menu=Usuarios&accion=Editar&id=${us.getIdUsuario()}" ><i class="fas fa-edit"></i></a>
                                             <a class="btn btn-warning" href="Usuarios_srv?menu=Usuarios&accion=Estado&id=${us.getIdUsuario()}" ><i class="fas fa-user-times"></i></a>
-
+                                            <a class="btn btn-warning" href="Usuarios_srv?menu=Usuarios&accion=Editar&id=${us.getIdUsuario()}" ><i class="fas fa-edit"></i></a>   
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -125,7 +150,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         </div> 
     </div>
     <div class="copy_right">
-        <p> &copy; 2013 Retail_hosting. All rights reserved |  <%=p.getNombre()%> <%=p.getApellido()%> <a href="CerrarSesion_srv">Salir</a></p>
+        <p> © 2021 VILLA FLASH NET . All rights reserved|  <%=p.getNombre()%> <%=p.getApellido()%> <a href="CerrarSesion_srv">Salir</a></p>
     </div>
     <%}
     %>

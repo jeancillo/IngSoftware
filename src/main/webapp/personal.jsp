@@ -38,8 +38,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             }%><%else {
 
                     Personal p = Personaldao.listarPersonalXId(us.getIdPersonal());
-                    Usuario uEdit = (Usuario) request.getAttribute("usuario");
-                    ArrayList<Usuario> lista = (ArrayList)request.getAttribute("user");
+                    Personal pEdit = (Personal) request.getAttribute("pers");
         %>
         <div class="header">
             <div class="header_top">
@@ -50,8 +49,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <div class="menu">
                         <ul>
                             <li><a href="principal.jsp">Home</a></li>
-                            <li><a href="Personal_srv?menu=Personal&accion=Listar">Personal</a></li>
-                            <li class="active"><a href="Usuarios_srv?menu=Usuarios&accion=Listar">Usuarios</a></li>
+                            <li class="active"><a href="Personal_srv?menu=Personal&accion=Listar">Personal</a></li>
+                            <li><a href="Usuarios_srv?menu=Usuarios&accion=Listar">Usuarios</a></li>
                             <li><a href="#">Support</a></li>
                             <li><a href="#">Contact</a></li>
                             <li><a href="CerrarSesion_srv">Cerrar Sesion</a></li>
@@ -62,27 +61,19 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 </div>
             </div>
         </div>
-        <%if(uEdit==null){%>
+        <%if (pEdit == null) {%>
         <div class="content_bottom" id="account">
             <div class="wrap">
                 <div class="register_account">
                     <h3>Registro</h3>
-                    <p>Registrar nuevo usuario</p>
-                    <form action="Usuarios_srv?menu=Usuarios" method="POST"> 
-                        <input name="us" type="text" placeholder="Username" class="field" required>
-                        <input name="pas" type="text" placeholder="Password" class="field" required> 
-                        <select id="country" name="cmbo_tps" onchange="change_country(this.value)" class="frm-field required">
-                            <c:forEach var="tip" items="${tipos}">
-                                <option value=${tip.getIdTipoUser()}>${tip.getTipoUser()}</option>      
-                            </c:forEach>
-                        </select>
-                        <select id="country" name="cmbo_prs" onchange="change_country(this.value)" class="frm-field required">
-
-                            <c:forEach var="prs" items="${personal}">
-                                <option value=${prs.getIdPersonal()}>${prs.getNombre()} ${prs.getApellido()}</option>     
-                            </c:forEach>
-                        </select>
-                        <div class="login"><input type="submit" name="accion" value="Agregar"></div>
+                    <p>Registrar nuevo empleado</p>
+                    <form action="Personal_srv?menu=Personal" method="POST" enctype="multipart/form-data"> 
+                        <input name="nom" type="text" placeholder="Nombre" class="field" value="${pers.getNombre()}" required>
+                        <input name="ape" type="text" placeholder="Apellido" class="field" value="${pers.getApellido()}" required> 
+                        <input name="dni" type="text" placeholder="DNI" class="field" size="10" maxlength="8" value="${pers.getDni()}" required>
+                        <input name="img" type="file"  class="field" value="${pers.getImg()}"required>
+                        <div class="clear"></div><br>
+                        <div class="login" style="float: right;"><input type="submit" name="accion" value="Agregar"></div>
                         <div>
                             <label style="font-size: 12px; color: red">
                                 <!--- mensaje  de error-->
@@ -95,14 +86,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <div class="clear"></div>
         </div>
         <%}else{%>
-        <div class="content_bottom" id="account">
+         <div class="content_bottom" id="account">
             <div class="wrap">
                 <div class="register_account">
                     <h3>Registro</h3>
-                    <p>Registrar nuevo usuario</p>
-                    <form action="Usuarios_srv?menu=Usuarios" method="POST"> 
-                        <input name="us" type="text" placeholder="Username" class="field" value="${usuario.getUser()}" required>
-                        <input name="pas" type="text" placeholder="Password" class="field" value="${usuario.getPassword()}"required> 
+                    <p>Registrar nuevo empleado</p>
+                    <form action="Personal_srv?menu=Personal" method="POST" enctype="multipart/form-data"> 
+                        <input name="nom" type="text" placeholder="Nombre" class="field" value="${pers.getNombre()}" required>
+                        <input name="ape" type="text" placeholder="Apellido" class="field" value="${pers.getApellido()}" required> 
+                        <input name="dni" type="text" placeholder="DNI" class="field" size="10" maxlength="8" value="${pers.getDni()}" required>
                         <div class="login"><input type="submit" name="accion" value="Actualizar"></div>
                         <div>
                             <label style="font-size: 12px; color: red">
@@ -116,30 +108,33 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <div class="clear"></div>
         </div>
         <%}%>
+        
         <div class="main">
             <div class="wrap">
                 <div class="plans">
-                    <h3>Usuarios Registrados</h3>
+                    <h3>Empleados Registrados</h3>
                     <div class="plans_table">
                         <table width="100%" cellspacing="0" class="compare_plan">
                             <thead>
                                 <tr>
                                     <th class="plans-list"><h3>Nombre</h3></th>
-                                    <th class="plans-list"><h3>Tipo</h3></th>
-                                    <th class="plans-list"><h3>Estado</h3></th>
+                                    <th class="plans-list"><h3>Apellido</h3></th>
+                                    <th class="plans-list"><h3>DNI</h3></th>
+                                    <th class="plans-list"><h3>#</h3></th>
                                     <th class="plans-list"><h3>Acciones</h3></th>
-                                    
                                 </tr>
                             </thead>		
                             <tbody>
-                                <c:forEach var="us" items="${user}">
+                                <c:forEach var="ps" items="${personal}">
                                     <tr>
-                                        <td class="plan_list_title">${us.getUser()}</td>
-                                        <td class="price_body">${us.getIdTipoUser()}</td>
-                                        <td class="price_body">${us.getEstado()}</td>
+                                        <td class="plan_list_title">${ps.getNombre()}</td>
+                                        <td class="price_body">${ps.getApellido()}</td>
+                                        <td class="price_body">${ps.getDni()}</td>
+                                        <td class="price_body"><img src="Img_srv?id=${ps.getIdPersonal()}" width="50" height="50"></td>
                                         <td>
-                                            <a class="btn btn-warning" href="Usuarios_srv?menu=Usuarios&accion=Estado&id=${us.getIdUsuario()}" ><i class="fas fa-user-times"></i></a>
-                                            <a class="btn btn-warning" href="Usuarios_srv?menu=Usuarios&accion=Editar&id=${us.getIdUsuario()}" ><i class="fas fa-edit"></i></a>   
+                                            <a class="btn btn-warning" href="Personal_srv?menu=Personal&accion=Editar&id=${ps.getIdPersonal()}" ><i class="fas fa-edit"></i></a>
+                                            <a class="btn btn-warning" href="Personal_srv?menu=Personal&accion=Delete&id=${ps.getIdPersonal()}" ><i class="far fa-trash-alt"></i></a>
+
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -150,7 +145,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         </div> 
     </div>
     <div class="copy_right">
-        <p> © 2021 VILLA FLASH NET . All rights reserved|  <%=p.getNombre()%> <%=p.getApellido()%> <a href="CerrarSesion_srv">Salir</a></p>
+        <p> © 2021 VILLA FLASH NET . All rights reserved |  <%=p.getNombre()%> <%=p.getApellido()%> <a href="CerrarSesion_srv">Salir</a></p>
     </div>
     <%}
     %>

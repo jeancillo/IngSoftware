@@ -68,7 +68,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <div class="menu">
                         <ul>
                             <li class="active"><a href="principal.jsp">Home</a></li>
-                            <li><a href="#">Domains</a></li>
+                            <li><a href="Personal_srv?menu=Personal&accion=Listar">Personal</a></li>
                             <li><a href="Usuarios_srv?menu=Usuarios&accion=Listar">Usuarios</a></li>
                             <li><a href="#">Support</a></li>
                             <li><a href="#">Contact</a></li>

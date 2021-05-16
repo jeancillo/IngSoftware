@@ -70,16 +70,11 @@ public class Usuarios_srv extends HttpServlet {
                     }
                     break;
                 case "Actualizar":
-                    String user_n = request.getParameter("us").toUpperCase();
+                    String user_n = request.getParameter("us");
                     String pass_n = request.getParameter("pas");
-                    int id_prs_n = Integer.parseInt(request.getParameter("cmbo_prs"));
-                    int id_tps_n = Integer.parseInt(request.getParameter("cmbo_tps"));
                     us.setUser(user_n);
                     us.setPassword(pass_n);
-                    us.setIdTipoUser(id_tps_n);
-                    us.setIdPersonal(id_prs_n);
                     us.setIdUsuario(id);
-                    System.out.println(id);
                     Usuariodao.guardarUsuario(us);
                     request.setAttribute("msg", "Usuario modificado correctamentee");
                     request.getRequestDispatcher("Usuarios_srv?menu=Usuarios&accion=Listar").forward(request, response);

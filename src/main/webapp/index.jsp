@@ -77,7 +77,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <!--//form-ends-here-->
                     </div><!-- copyright -->
                     <div class="copyright w3-agile">
-                        <p> © 2017 Clean Login Form . All rights reserved | Design by <a href="http://w3layouts.com/" target="_blank">W3layouts</a></p>
+                        <p> © 2021 VILLA FLASH NET . All rights reserved</p>
                     </div>
                     <!-- //copyright --> 
                 </div>

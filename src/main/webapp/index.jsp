@@ -1,3 +1,4 @@
+<%@page import="modelo.Usuario"%>
 <!--Author: W3layouts
 Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
@@ -19,70 +20,94 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <!-- online fonts -->
         <link href="//fonts.googleapis.com/css?family=Sirin+Stencil" rel="stylesheet">
         <!-- online fonts -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="sweetalert2/dist/sweetalert2.all.min.js"></script>
 
     <body>
-        <%String msg = (String) request.getAttribute("msg");%>
+        <script>
+            //funcion para no volver al index
+            window.onload = function () {
+                window.location.hash = "";
+                window.location.hash = "Again-No-back-button"
 
-        <div class="container demo-1">
-            <div class="content">
-                <div id="large-header" class="large-header">
-                    <h1>Bienvenido a Villa Flash Net</h1>
-                    <div class="main-agileits">
-                        <!--form-stars-here-->
-                        <div class="form-w3-agile">
-                            <h2>Iniciar Sesion</h2>
-                            <form action="Login_srv" method="post">
-                                <div class="form-sub-w3">
-                                    <input type="text" name="user" placeholder="Username " required="" />
-                                    <div class="icon-w3">
-                                        <i class="fa fa-user" aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                                <div class="form-sub-w3">
-                                    <input type="password" name="pass" placeholder="Password" required="" />
-                                    <div class="icon-w3">
-                                        <i class="fa fa-unlock-alt" aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                                <div class="clear"></div>
-                                <p class="p-bottom-w3ls"><a class href="#"></a></p>
-                                <p class="p-bottom-w3ls1"><a class href="#"></a></p>
-                                <div class="clear"></div>
-                                <div>
-                                    <label style="font-size: 12px; color: red">
-                                        <!--- mensaje  de error-->
-                                        <span class="msg"><%=msg != null ? msg : ""%></span>
-                                    </label>  
-                                </div>
-                                <div class="submit-w3l">
-                                    <input type="submit" name="accion" value="Login">
-                                </div>
-                                <div class="clear"></div>
-                            </form>
-                            <div class="social w3layouts">
-                                <div class="heading">
-                                    <h5>Or Login with</h5>
-                                    <div class="clear"></div>
-                                </div>
-                                <div class="icons">
-                                    <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                    <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    <a href="#"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a>
-                                    <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
-                                    <div class="clear"></div>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                        </div>
-                        <!--//form-ends-here-->
-                    </div><!-- copyright -->
-                    <div class="copyright w3-agile">
-                        <p> © 2021 VILLA FLASH NET . All rights reserved</p>
-                    </div>
-                    <!-- //copyright --> 
-                </div>
-            </div>
-        </div>	
-
-    </body>
+                window.onhashchange = function () {
+                    window.location.hash = ""
+                }
+            }
+        </script>
+        <%  String msg = (String) request.getAttribute("msg");
+            if (msg == null) {
+        %>
+        <jsp:include page="formLogin.jsp"  flush="true"></jsp:include>
+        <%} else if (msg.equals("true")) {%>
+        <jsp:include page="formLogin.jsp" flush="true"></jsp:include>
+        <script type="text/javascript">
+            Swal.fire({
+                title: 'USUARIO IDENTIFICADO CORRECTAMENTE',
+                icon: 'success',
+                text: 'Los datos ingresados son correctos',
+                showCancelButton: true,
+                showCancelButton: false,
+                confirmButtonText: `OK`,
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    window.location = 'principal.jsp';
+                }
+            })
+        </script>
+        <%} else if (msg.equals("false")) {%>
+        <jsp:include page="formLogin.jsp"  flush="true"></jsp:include>
+        <script type="text/javascript">
+            Swal.fire({
+                title: 'USUARIO INCORRECTO',
+                 text: 'Los datos ingresados son incorrectos',
+                icon: 'error',
+                showCancelButton: true,
+                showCancelButton: false,
+                confirmButtonText: `OK`,
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    window.location = 'index.jsp';
+                }
+            })
+        </script>
+        <%} else if (msg.equals("recup")) {%>
+        <jsp:include page="formLogin.jsp" flush="true"></jsp:include>
+        <script type="text/javascript">
+            Swal.fire({
+                title: 'DATOS DE RECUPERACION',
+                icon: 'info',
+                text: 'La contraseña se ha reestablecido a sus datos de fabrica',
+                showCancelButton: true,
+                showCancelButton: false,
+                confirmButtonText: `OK`,
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    window.location = 'index.jsp';
+                }
+            })
+        </script>
+        
+        <%}else if (msg.equals("codNull")) {%>
+        <jsp:include page="formLogin.jsp"  flush="true"></jsp:include>
+        <script type="text/javascript">
+            Swal.fire({
+                title: 'ERROR EN CODIGO DE RECUPERACION',
+                icon: 'error',
+                text: 'El codigo ingresado no corresponde a ningun usuario de la empresa',
+                showCancelButton: true,
+                showCancelButton: false,
+                confirmButtonText: `OK`,
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    window.location = 'index.jsp';
+                }
+            })
+        </script>
+        <%}%>
+    </body> 
 </html>

@@ -1,10 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package controlador;
 
+import dao.Usuariodao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,36 +9,39 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import modelo.MD5;
+import modelo.Usuario;
 
-/**
- *
- * @author PIERO
- */
-@WebServlet(name = "CerrarSesion_srv", urlPatterns = {"/CerrarSesion_srv"})
-public class CerrarSesion_srv extends HttpServlet {
+@WebServlet(name = "Password_srv", urlPatterns = {"/Password_srv"})
+public class Password_srv extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String btn = request.getParameter("btn");
-        if(btn.equals("true")){
-        HttpSession session = request.getSession();
-        session.removeAttribute("us");
-        session.invalidate();   
-        request.getRequestDispatcher("index.jsp").forward(request, response);
-        }else{
-        request.getRequestDispatcher("principal.jsp").forward(request, response);    
-        }  
+        String accion = request.getParameter("accion");
+        switch(accion){
+                case "Formulario":
+                    request.getRequestDispatcher("password.jsp").forward(request, response);
+                break;
+                case "Recuperar":
+                    String codRecu = request.getParameter("codRecuperacion");
+                    Usuario us = Usuariodao.validarCod(codRecu);
+                    if(us!=null){
+                        request.setAttribute("msg","recup");
+                        Usuariodao.reestablecerContraseña(MD5.getMD5("123456"), us.getIdUsuario());
+                        request.getRequestDispatcher("index.jsp").forward(request, response);
+                    }else{
+                        request.setAttribute("msg","codNull");
+                        request.getRequestDispatcher("index.jsp").forward(request, response);
+                        
+                    }
+                break;
+                case "Regresar":
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                break;
+        }
+       
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -2,6 +2,7 @@
 <%@page import="modelo.Personal"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="modelo.Usuario"%>
+<%@page session="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!--A Design by W3layouts
 Author: W3layout
@@ -33,12 +34,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             String msg = (String) request.getAttribute("msg");
             HttpSession s = request.getSession();
             Usuario us = (Usuario) s.getAttribute("us");
-            if (us == null) {
-                response.sendRedirect("index.jsp");
-            }%><%else {
-
-                    Personal p = Personaldao.listarPersonalXId(us.getIdPersonal());
-                    Personal pEdit = (Personal) request.getAttribute("pers");
+            Personal p = Personaldao.listarPersonalXId(us.getIdPersonal());
+            Personal pEdit = (Personal) request.getAttribute("pers");
         %>
         <div class="header">
             <div class="header_top">
@@ -48,12 +45,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     </div>	
                     <div class="menu">
                         <ul>
-                            <li><a href="principal.jsp">Home</a></li>
+                            <li><a href="principal.jsp">Inicio</a></li>
                             <li class="active"><a href="Personal_srv?menu=Personal&accion=Listar">Personal</a></li>
                             <li><a href="Usuarios_srv?menu=Usuarios&accion=Listar">Usuarios</a></li>
                             <li><a href="#">Support</a></li>
                             <li><a href="#">Contact</a></li>
-                            <li><a href="CerrarSesion_srv">Cerrar Sesion</a></li>
+                            <li><a href="CerrarSesion_srv?btn=true">Cerrar Sesion</a></li>
                             <div class="clear"></div>
                         </ul>
                     </div>
@@ -85,8 +82,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             </div>              
             <div class="clear"></div>
         </div>
-        <%}else{%>
-         <div class="content_bottom" id="account">
+        <%} else {%>
+        <div class="content_bottom" id="account">
             <div class="wrap">
                 <div class="register_account">
                     <h3>Registro</h3>
@@ -108,7 +105,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <div class="clear"></div>
         </div>
         <%}%>
-        
+
         <div class="main">
             <div class="wrap">
                 <div class="plans">
@@ -125,19 +122,19 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 </tr>
                             </thead>		
                             <tbody>
-                                <c:forEach var="ps" items="${personal}">
+                                <%/*<c:forEach var="ps" items="${personal}">
                                     <tr>
                                         <td class="plan_list_title">${ps.getNombre()}</td>
                                         <td class="price_body">${ps.getApellido()}</td>
                                         <td class="price_body">${ps.getDni()}</td>
                                         <td class="price_body"><img src="Img_srv?id=${ps.getIdPersonal()}" width="50" height="50"></td>
                                         <td>
-                                            <a class="btn btn-warning" href="Personal_srv?menu=Personal&accion=Editar&id=${ps.getIdPersonal()}" ><i class="fas fa-edit"></i></a>
-                                            <a class="btn btn-warning" href="Personal_srv?menu=Personal&accion=Delete&id=${ps.getIdPersonal()}" ><i class="far fa-trash-alt"></i></a>
+                                            <a class="btn btn-warning" href="Personal_srv?menu=Personal&accion=Editar&id=${ps.getIdPersonal()}" title="Editar"><i class="fas fa-edit"></i></a>
+
 
                                         </td>
                                     </tr>
-                                </c:forEach>
+                                </c:forEach>*/%>
                             </tbody></table>
                     </div> 			 
                 </div>
@@ -145,10 +142,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         </div> 
     </div>
     <div class="copy_right">
-        <p> © 2021 VILLA FLASH NET . All rights reserved |  <%=p.getNombre()%> <%=p.getApellido()%> <a href="CerrarSesion_srv">Salir</a></p>
+        <p> © 2021 VILLA FLASH NET . All rights reserved |  <%=p.getNombre()%> <%=p.getApellido()%> <a href="CerrarSesion_srv?btn=true">Salir</a></p>
     </div>
-    <%}
-    %>
 </body>
 </html>
 

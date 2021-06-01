@@ -6,11 +6,14 @@ import dao.Usuariodao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import javafx.scene.control.Alert;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.swing.JOptionPane;
 import modelo.Personal;
 import modelo.TipoUsuario;
 import modelo.Usuario;
@@ -21,13 +24,16 @@ import modelo.Usuario;
  */
 @WebServlet(name = "Usuarios_srv", urlPatterns = {"/Usuarios_srv"})
 public class Usuarios_srv extends HttpServlet {
-    
+
     int id;
     Usuario us = new Usuario();
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        PrintWriter out = response.getWriter();
         String menu = request.getParameter("menu");
         String accion = request.getParameter("accion");
+        System.out.println(accion);
         if (menu.equals("Usuarios")) {
             switch (accion) {
                 case "Listar":
@@ -43,11 +49,14 @@ public class Usuarios_srv extends HttpServlet {
                     String pass = request.getParameter("pas");
                     int id_prs = Integer.parseInt(request.getParameter("cmbo_prs"));
                     int id_tps = Integer.parseInt(request.getParameter("cmbo_tps"));
+                    Personal p = Personaldao.listarPersonalXId(id_prs);
+                    String codRecuperacion = p.getNombre().substring(0, 3) + p.getDni() + p.getApellido().substring(0, 3);
                     us.setUser(user);
                     us.setPassword(pass);
                     us.setIdPersonal(id_prs);
                     us.setIdTipoUser(id_tps);
-                    Usuario val = Usuariodao.validar(user, pass);
+                    us.setCodRecuperacion(codRecuperacion);
+                    Usuario val = Usuariodao.validarId(p.getIdPersonal());
                     if (val != null) {
                         request.setAttribute("msg", "Usuario con ese nombre ya existe");
                         request.getRequestDispatcher("Usuarios_srv?menu=Usuarios&accion=Listar").forward(request, response);
@@ -82,13 +91,23 @@ public class Usuarios_srv extends HttpServlet {
                 case "Estado":
                     id = Integer.parseInt(request.getParameter("id"));
                     Usuario valEs = Usuariodao.listarUsuarioXId(id);
+                    HttpSession s = request.getSession();
+                    Usuario us = (Usuario) s.getAttribute("us");
                     String estado = valEs.getEstado();
-                    if (estado.equals("A")) {
-                        Usuariodao.desconectarUsuario(id);
-                        request.getRequestDispatcher("Usuarios_srv?menu=Usuarios&accion=Listar").forward(request, response);
-                    } else if (estado.equals("I")) {
-                        Usuariodao.conectarUsuario(id);
-                        request.getRequestDispatcher("Usuarios_srv?menu=Usuarios&accion=Listar").forward(request, response);
+                    if (!(us.getUser().equals(valEs.getUser()))) {
+                        if (estado.equals("A")) {
+                            Usuariodao.desconectarUsuario(id);
+                            request.getRequestDispatcher("Usuarios_srv?menu=Usuarios&accion=Listar").forward(request, response);
+                        } else if (estado.equals("I")) {
+                            Usuariodao.conectarUsuario(id);
+                            request.getRequestDispatcher("Usuarios_srv?menu=Usuarios&accion=Listar").forward(request, response);
+                        }
+                    } else {
+                        if (estado.equals("A")) {
+                            Usuariodao.desconectarUsuario(id);
+                            request.setAttribute("mensaje", "Usuario inactivo / Sesion finalizada");
+                            request.getRequestDispatcher("Usuarios_srv?menu=Usuarios&accion=Listar").forward(request, response);
+                        }
                     }
                     break;
                 case "Editar":

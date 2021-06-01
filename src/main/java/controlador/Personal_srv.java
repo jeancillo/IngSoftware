@@ -38,8 +38,8 @@ public class Personal_srv extends HttpServlet {
                     request.setAttribute("personal", lista);
                     break;
                 case "Agregar":
-                    String nom = request.getParameter("nom");
-                    String ape = request.getParameter("ape");
+                    String nom = request.getParameter("nom").toUpperCase();
+                    String ape = request.getParameter("ape").toUpperCase();
                     String dni = request.getParameter("dni");
                     Part part = request.getPart("img");
                     InputStream inputStream = part.getInputStream();
@@ -72,8 +72,8 @@ public class Personal_srv extends HttpServlet {
                     }
                     break;
                 case "Actualizar":
-                    String nom_n = request.getParameter("nom");
-                    String ape_n = request.getParameter("ape");
+                    String nom_n = request.getParameter("nom").toUpperCase();
+                    String ape_n = request.getParameter("ape").toUpperCase();
                     String dni_n = request.getParameter("dni");
                     p.setNombre(nom_n);
                     p.setApellido(ape_n);

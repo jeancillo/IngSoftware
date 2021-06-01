@@ -39,6 +39,26 @@ public class TipoUsuariodao {
         }
         return lista; 
     }
+     public static TipoUsuario listarTiposXId(int id){
+        Connection cn = conexion.conexion.abrir();
+        TipoUsuario tu=null;
+        try{
+            PreparedStatement stm =   cn.prepareStatement("select * from tipousuario where idTipoUser=?");
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            while(rs.next()){
+                tu = new TipoUsuario();
+                tu.setIdTipoUser(rs.getInt("idTipoUser"));
+                tu.setTipoUser(rs.getString("tipoUser"));
+            }
+            cn.close();
+            stm.close();
+            rs.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return tu;
+    }
      public static ArrayList<TipoUsuario> listarTiposxCodigo(){
         ArrayList<TipoUsuario> lista = new ArrayList<TipoUsuario> ();
         TipoUsuario tu = null;

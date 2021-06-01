@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class conexion {
-    private static final String DB_URL = "jdbc:mysql://localhost:3307/bd_arapa";
+    private static final String DB_URL = "jdbc:mysql://localhost:3307/bd_villa_flash_net";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "";
     private static final String DB_Driver="com.mysql.cj.jdbc.Driver";

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import static modelo.MD5.getMD5;
 import modelo.Usuario;
 
 
@@ -26,14 +27,15 @@ public class Login_srv extends HttpServlet {
       if(accion.equals("Login")){
           String user = request.getParameter("user");
           String pass = request.getParameter("pass");
-          Usuario us = Usuariodao.validar(user, pass);
+         
+          Usuario us = Usuariodao.validar(user, getMD5(pass));
           if(us!=null){
-              System.out.println(us.getEstado());
                HttpSession session = request.getSession();
                session.setAttribute("us", us);
-               response.sendRedirect("principal.jsp");   
+               request.setAttribute("msg", "true");
+               request.getRequestDispatcher("index.jsp").forward(request, response);
           }else{
-              request.setAttribute("msg", "Usuario y/o Contraseña incorrecta");
+              request.setAttribute("msg", "false");
               request.getRequestDispatcher("index.jsp").forward(request, response);
           }
       }else{

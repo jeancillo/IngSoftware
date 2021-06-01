@@ -2,6 +2,7 @@
 <%@page import="modelo.Personal"%>
 <%@page import="modelo.Usuario"%>
 <%@page import="modelo.Usuario"%>
+<%@page session="true"%>
 <!--A Design by W3layouts
 Author: W3layout
 Author URL: http://w3layouts.com
@@ -27,6 +28,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     $('html,body').animate({scrollTop: $(this.hash).offset().top}, 1200);
                 });
             });
+        </script>
+        <script>
+            //funcion para no volver al index
+            window.onload = function (){
+                window.location.hash="";
+                window.location.hash="Again-No-back-button"
+                window.onhashchange=function(){
+                    window.location.hash=""
+                }
+            }
         </script>
         <script src="js/responsiveslides.min.js"></script>
         <script>
@@ -54,9 +65,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             HttpSession s = request.getSession();
             Usuario us = (Usuario) s.getAttribute("us");
             if (us == null) {
+                s.invalidate();
                 response.sendRedirect("index.jsp");
             }%><%else {
-
+                    response.setHeader("Cache-Control", "no-cache,no-store,must-revalidate");
                     Personal p = Personaldao.listarPersonalXId(us.getIdPersonal());
         %>
         <div class="header">
@@ -67,12 +79,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     </div>	
                     <div class="menu">
                         <ul>
-                            <li class="active"><a href="principal.jsp">Home</a></li>
+                            <li class="active"><a href="principal.jsp">Inicio</a></li>
                             <li><a href="Personal_srv?menu=Personal&accion=Listar">Personal</a></li>
                             <li><a href="Usuarios_srv?menu=Usuarios&accion=Listar">Usuarios</a></li>
                             <li><a href="#">Support</a></li>
                             <li><a href="#">Contact</a></li>
-                            <li><a href="CerrarSesion_srv">Cerrar Sesion</a></li>
+                            <li><a href="CerrarSesion_srv?btn=true">Cerrar Sesion</a></li>
                             
                             <div class="clear"></div>
                         </ul>
@@ -99,20 +111,20 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             <div class="services_list">
                                 <div class="services_grid1">	
                                     <div class="services_img">
-                                        <img src="images/service_1.png" alt="" />
+                                        <a href="Personal_srv?menu=Personal&accion=Listar"><img src="images/perfil.png" alt="" /></a>
                                     </div>
                                     <div class="services_desc">
-                                        <h4>Free Email Account</h4>
+                                        <h4>Personal</h4>
                                         <p>simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting.</p>
                                     </div>
                                     <div class="clear"></div>
                                 </div>
                                 <div class="services_grid2">	
                                     <div class="services_img">
-                                        <img src="images/service_2.png" alt="" />
+                                        <a href="Usuarios_srv?menu=Usuarios&accion=Listar"><img src="images/usuario.png" alt="" /></a>
                                     </div>
                                     <div class="services_desc">
-                                        <h4>Privacy Protection</h4>
+                                        <h4>Usuarios</h4>
                                         <p>simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting.</p>
                                     </div>
                                     <div class="clear"></div>
@@ -122,20 +134,20 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             <div class="services_list">
                                 <div class="services_grid1">	
                                     <div class="services_img">
-                                        <img src="images/service_3.png" alt="" />
+                                        <img src="images/pagar.png" alt="" />
                                     </div>
                                     <div class="services_desc">
-                                        <h4>24x7 Live Support</h4>
+                                        <h4>Pagos</h4>
                                         <p>simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting</p>
                                     </div>
                                     <div class="clear"></div>
                                 </div>
                                 <div class="services_grid2">	
                                     <div class="services_img">
-                                        <img src="images/service_4.png" alt="" />
+                                        <img src="images/cortando-papel.png" alt="" />
                                     </div>
                                     <div class="services_desc">
-                                        <h4>Domain Forwarding</h4>
+                                        <h4>Cortes</h4>
                                         <p>simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting</p>
                                     </div>
                                     <div class="clear"></div>
@@ -145,20 +157,20 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             <div class="services_list">
                                 <div class="services_grid1">	
                                     <div class="services_img">
-                                        <img src="images/service_5.png" alt="" />
+                                        <img src="images/inmigracion.png" alt="" />
                                     </div>
                                     <div class="services_desc">
-                                        <h4>Bulk Tools</h4>
+                                        <h4>Reportes</h4>
                                         <p>simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting.</p>
                                     </div>
                                     <div class="clear"></div>
                                 </div>
                                 <div class="services_grid2">	
                                     <div class="services_img">
-                                        <img src="images/service_6.png" alt="" />
+                                        <img src="images/mantenimiento-web.png" alt="" />
                                     </div>
                                     <div class="services_desc">
-                                        <h4>Easy to use Control Panel</h4>
+                                        <h4>Mantenimiento</h4>
                                         <p>simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting.</p>
                                     </div>
                                     <div class="clear"></div>
@@ -171,7 +183,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             </div>    
         </div>
         <div class="copy_right">
-            <p> &copy; 2013 Retail_hosting. All rights reserved |  <%=p.getNombre()%> <%=p.getApellido()%> <a href="CerrarSesion_srv">Salir</a></p>
+            <p> &copy; 2013 Retail_hosting. All rights reserved |  <%=p.getNombre()%> <%=p.getApellido()%> <a href="CerrarSesion_srv?btn=true">Salir</a></p>
         </div>
         <%}
         %>

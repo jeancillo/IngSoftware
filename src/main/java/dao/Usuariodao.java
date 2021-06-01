@@ -26,6 +26,59 @@ public class Usuariodao {
                 us.setPassword(rs.getString("password"));
                 us.setIdPersonal(rs.getInt("idPersonal"));
                 us.setIdTipoUser(rs.getInt("idTipoUser"));
+                us.setCodRecuperacion(rs.getString("codRecuperacion"));
+                us.setEstado(rs.getString("estado"));
+            }
+            cn.close();
+            stm.close();
+            rs.close();
+        } catch (Exception e) {
+            System.out.print("No se encontro usuario");
+            e.printStackTrace();
+        }
+        return us;
+    }
+    public static Usuario validarCod(String cod) {
+        Usuario us = null;
+        Connection cn = conexion.conexion.abrir();
+        try {
+            PreparedStatement stm = cn.prepareStatement("select * from usuario where codRecuperacion=?");
+            stm.setString(1, cod);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                us = new Usuario();
+                us.setIdUsuario(rs.getInt("idUsuario"));
+                us.setUser(rs.getString("user"));
+                us.setPassword(rs.getString("password"));
+                us.setIdPersonal(rs.getInt("idPersonal"));
+                us.setIdTipoUser(rs.getInt("idTipoUser"));
+                us.setCodRecuperacion(rs.getString("codRecuperacion"));
+                us.setEstado(rs.getString("estado"));
+            }
+            cn.close();
+            stm.close();
+            rs.close();
+        } catch (Exception e) {
+            System.out.print("No se encontro usuario");
+            e.printStackTrace();
+        }
+        return us;
+    }
+    public static Usuario validarId(int cod) {
+        Usuario us = null;
+        Connection cn = conexion.conexion.abrir();
+        try {
+            PreparedStatement stm = cn.prepareStatement("select * from usuario where idPersonal = ?");
+            stm.setInt(1, cod);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                us = new Usuario();
+                us.setIdUsuario(rs.getInt("idUsuario"));
+                us.setUser(rs.getString("user"));
+                us.setPassword(rs.getString("password"));
+                us.setIdPersonal(rs.getInt("idPersonal"));
+                us.setIdTipoUser(rs.getInt("idTipoUser"));
+                us.setCodRecuperacion(rs.getString("codRecuperacion"));
                 us.setEstado(rs.getString("estado"));
             }
             cn.close();
@@ -51,6 +104,7 @@ public class Usuariodao {
                 u.setPassword(rs.getString("password"));
                 u.setIdPersonal(rs.getInt("idPersonal"));
                 u.setIdTipoUser(rs.getInt("idTipoUser"));
+                u.setCodRecuperacion(rs.getString("codRecuperacion"));
                 u.setEstado(rs.getString("estado"));
                 lista.add(u);
             }
@@ -77,6 +131,7 @@ public class Usuariodao {
                 u.setPassword(rs.getString("password"));
                 u.setIdPersonal(rs.getInt("idPersonal"));
                 u.setIdTipoUser(rs.getInt("idTipoUser"));
+                u.setCodRecuperacion(rs.getString("codRecuperacion"));
                 u.setEstado(rs.getString("estado"));
             }
             cn.close();
@@ -102,6 +157,7 @@ public class Usuariodao {
                 u.setPassword(rs.getString("password"));
                 u.setIdPersonal(rs.getInt("idPersonal"));
                 u.setIdTipoUser(rs.getInt("idTipoUser"));
+                u.setCodRecuperacion(rs.getString("codRecuperacion"));
                 u.setEstado(rs.getString("estado"));
             }
             cn.close();
@@ -114,7 +170,7 @@ public class Usuariodao {
         return u;
     }
     public static void insertarUsuario(Usuario us) {
-        String sql = "insert into usuario (user,password,idPersonal,idTipoUser,estado)values(?,?,?,?,'A')";
+        String sql = "insert into usuario (user,password,idPersonal,idTipoUser,codRecuperacion,estado)values(?,?,?,?,?,'A')";
         Connection cn = conexion.conexion.abrir();
         try {
             PreparedStatement stm=cn.prepareStatement(sql);
@@ -122,6 +178,7 @@ public class Usuariodao {
             stm.setString(2, us.getPassword());
             stm.setInt(3, us.getIdPersonal());
             stm.setInt(4, us.getIdTipoUser());
+            stm.setString(5,us.getCodRecuperacion());
             stm.executeUpdate();
             cn.close();
             stm.close();
@@ -137,6 +194,20 @@ public class Usuariodao {
             stm.setString(1,us.getUser());
             stm.setString(2, us.getPassword());
             stm.setInt(3, us.getIdUsuario());
+            stm.executeUpdate();
+            cn.close();
+            stm.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public static void reestablecerContraseña(String pass,int idUser) {
+        String sql = "update usuario set password=? where idUsuario=?";
+        Connection cn = conexion.conexion.abrir();
+        try {
+            PreparedStatement stm=cn.prepareStatement(sql);
+            stm.setString(1, pass);
+            stm.setInt(2, idUser);
             stm.executeUpdate();
             cn.close();
             stm.close();

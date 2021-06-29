@@ -27,7 +27,7 @@ public class Login_srv extends HttpServlet {
           String user = request.getParameter("user");
           String pass = request.getParameter("pass");
           Usuario us = Usuariodao.validar(user, pass);
-          if(us!=null){
+          if(us != null){
               System.out.println(us.getEstado());
                HttpSession session = request.getSession();
                session.setAttribute("us", us);

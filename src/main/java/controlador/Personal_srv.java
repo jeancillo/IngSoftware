@@ -2,10 +2,13 @@ package controlador;
 
 import dao.Personaldao;
 import dao.Usuariodao;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -36,51 +39,52 @@ public class Personal_srv extends HttpServlet {
                 case "Listar":
                     ArrayList<Personal> lista = Personaldao.listarPersonal();
                     request.setAttribute("personal", lista);
+                    request.getRequestDispatcher("personal.jsp").forward(request, response);
                     break;
                 case "Agregar":
                     String nom = request.getParameter("nom").toUpperCase();
-                    String ape = request.getParameter("ape").toUpperCase();
+                    String apePat = request.getParameter("apePat").toUpperCase();
+                    String apeMat = request.getParameter("apeMat").toUpperCase();
                     String dni = request.getParameter("dni");
                     Part part = request.getPart("img");
                     InputStream inputStream = part.getInputStream();
                     p.setNombre(nom);
-                    p.setApellido(ape);
+                    p.setApellidoPaterno(apePat);
+                    p.setApellidoMaterno(apeMat);
                     p.setDni(dni);
                     p.setImg(inputStream);
                     Personal val = Personaldao.validar(dni);
                     if (val != null) {
-                        request.setAttribute("msg", "Personal con ese dni ya existe");
+                        request.setAttribute("msg", "perNull");
                         request.getRequestDispatcher("Personal_srv?menu=Personal&accion=Listar").forward(request, response);
                     } else {
-                        request.setAttribute("msg", "Personal insertado correctamente");
+                        request.setAttribute("msg", "perInsert");
                         Personaldao.insertarPersonal(p);
                         request.getRequestDispatcher("Personal_srv?menu=Personal&accion=Listar").forward(request, response);
                     }
                     break;
                 case "Delete":
-                    id = Integer.parseInt(request.getParameter("id"));
-                    Usuario u = Usuariodao.listarUsuarioXIdPersonal(id);
-                    if(u!=null){
-                        Usuariodao.deleteUsuario(id);
-                        Personaldao.deletePersonal(id);
-                        request.setAttribute("msg", "El empleado se elimino correctamente");
-                        request.getRequestDispatcher("Personal_srv?menu=Personal&accion=Listar").forward(request, response);
-                    }else{
-                        Personaldao.deletePersonal(id);
-                        request.setAttribute("msg", "El empleado se elimino correctamente");
-                        request.getRequestDispatcher("Personal_srv?menu=Personal&accion=Listar").forward(request, response);
-                    }
                     break;
                 case "Actualizar":
                     String nom_n = request.getParameter("nom").toUpperCase();
-                    String ape_n = request.getParameter("ape").toUpperCase();
+                    String apePat_n = request.getParameter("apePat").toUpperCase();
+                    String apeMat_n = request.getParameter("apeMat").toUpperCase();
                     String dni_n = request.getParameter("dni");
                     p.setNombre(nom_n);
-                    p.setApellido(ape_n);
+                    p.setApellidoPaterno(apePat_n);
+                    p.setApellidoMaterno(apeMat_n);
                     p.setDni(dni_n);
                     p.setIdPersonal(id);
-                    Personaldao.guardarPersonal(p);
-                    request.setAttribute("msg", "Empleado modificado correctamentee");
+                    Personal valEdit = Personaldao.validar(dni_n);
+                    if (valEdit == null || (valEdit != null && valEdit.getIdPersonal() == id)) {
+                        Personaldao.guardarPersonal(p);
+                        request.setAttribute("msg", "perUpdate");
+                        request.getRequestDispatcher("Personal_srv?menu=Personal&accion=Listar").forward(request, response);
+                    } else {
+                        request.setAttribute("msg", "EditNull");
+                        request.getRequestDispatcher("Personal_srv?menu=Personal&accion=Listar").forward(request, response);
+                    }
+
                     request.getRequestDispatcher("Personal_srv?menu=Personal&accion=Listar").forward(request, response);
                     break;
                 case "Editar":
@@ -89,8 +93,9 @@ public class Personal_srv extends HttpServlet {
                     request.setAttribute("pers", valEd);
                     request.getRequestDispatcher("Personal_srv?menu=Personal&accion=Listar").forward(request, response);
                     break;
+                default:
+                    throw new AssertionError();
             }
-            request.getRequestDispatcher("personal.jsp").forward(request, response);
         }
     }
 

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
+import static modelo.MD5.getMD5;
 import modelo.Personal;
 import modelo.TipoUsuario;
 import modelo.Usuario;
@@ -33,7 +34,6 @@ public class Usuarios_srv extends HttpServlet {
         PrintWriter out = response.getWriter();
         String menu = request.getParameter("menu");
         String accion = request.getParameter("accion");
-        System.out.println(accion);
         if (menu.equals("Usuarios")) {
             switch (accion) {
                 case "Listar":
@@ -43,6 +43,7 @@ public class Usuarios_srv extends HttpServlet {
                     request.setAttribute("tipos", lista_tipos);
                     request.setAttribute("personal", lista_personal);
                     request.setAttribute("user", lista);
+                    request.getRequestDispatcher("usuarios.jsp").forward(request, response);
                     break;
                 case "Agregar":
                     String user = request.getParameter("us").toUpperCase();
@@ -50,18 +51,18 @@ public class Usuarios_srv extends HttpServlet {
                     int id_prs = Integer.parseInt(request.getParameter("cmbo_prs"));
                     int id_tps = Integer.parseInt(request.getParameter("cmbo_tps"));
                     Personal p = Personaldao.listarPersonalXId(id_prs);
-                    String codRecuperacion = p.getNombre().substring(0, 3) + p.getDni() + p.getApellido().substring(0, 3);
+                    String codRecuperacion = p.getNombre().substring(0, 3) + p.getDni() + p.getApellidoPaterno().substring(0, 3);
                     us.setUser(user);
-                    us.setPassword(pass);
+                    us.setPassword(getMD5(pass));
                     us.setIdPersonal(id_prs);
                     us.setIdTipoUser(id_tps);
                     us.setCodRecuperacion(codRecuperacion);
                     Usuario val = Usuariodao.validarId(p.getIdPersonal());
                     if (val != null) {
-                        request.setAttribute("msg", "Usuario con ese nombre ya existe");
+                        request.setAttribute("msg", "usNull");
                         request.getRequestDispatcher("Usuarios_srv?menu=Usuarios&accion=Listar").forward(request, response);
                     } else {
-                        request.setAttribute("msg", "Usuario insertado correctamente");
+                        request.setAttribute("msg", "usInsert");
                         Usuariodao.insertarUsuario(us);
                         request.getRequestDispatcher("Usuarios_srv?menu=Usuarios&accion=Listar").forward(request, response);
                     }
@@ -71,22 +72,33 @@ public class Usuarios_srv extends HttpServlet {
                     Usuariodao.deleteUsuario(id);
                     Usuario valUs = Usuariodao.listarUsuarioXId(id);
                     if (valUs != null) {
-                        request.setAttribute("msg", "El usuario no se pudo eliminar");
+                        request.setAttribute("msg", "usNullD");
                         request.getRequestDispatcher("Usuarios_srv?menu=Usuarios&accion=Listar").forward(request, response);
                     } else {
-                        request.setAttribute("msg", "El usuario se elimino correctamente");
+                        request.setAttribute("msg", "usDelete");
                         request.getRequestDispatcher("Usuarios_srv?menu=Usuarios&accion=Listar").forward(request, response);
                     }
                     break;
                 case "Actualizar":
-                    String user_n = request.getParameter("us");
+                    String user_n = request.getParameter("us").toUpperCase();
                     String pass_n = request.getParameter("pas");
+                    int id_tps_n = Integer.parseInt(request.getParameter("cmbo_tps"));
+                    int id_prs_n = Integer.parseInt(request.getParameter("cmbo_prs"));
                     us.setUser(user_n);
-                    us.setPassword(pass_n);
+                    us.setIdTipoUser(id_tps_n);
+                    us.setIdPersonal(id_prs_n);
+                    us.setPassword(getMD5(pass_n));
                     us.setIdUsuario(id);
-                    Usuariodao.guardarUsuario(us);
-                    request.setAttribute("msg", "Usuario modificado correctamentee");
-                    request.getRequestDispatcher("Usuarios_srv?menu=Usuarios&accion=Listar").forward(request, response);
+                    Usuario valEdit = Usuariodao.validarId(id_prs_n);
+                    if (valEdit == null || (valEdit != null && valEdit.getIdUsuario()==id)) {
+                        Usuariodao.guardarUsuario(us);
+                        request.setAttribute("msg", "usUpdate");
+                        request.getRequestDispatcher("Usuarios_srv?menu=Usuarios&accion=Listar").forward(request, response);
+                    } else {
+                        request.setAttribute("msg", "EditNull");
+                        request.getRequestDispatcher("Usuarios_srv?menu=Usuarios&accion=Listar").forward(request, response);
+                    }
+
                     break;
                 case "Estado":
                     id = Integer.parseInt(request.getParameter("id"));
@@ -97,15 +109,17 @@ public class Usuarios_srv extends HttpServlet {
                     if (!(us.getUser().equals(valEs.getUser()))) {
                         if (estado.equals("A")) {
                             Usuariodao.desconectarUsuario(id);
+                            request.setAttribute("msg", "usDes");
                             request.getRequestDispatcher("Usuarios_srv?menu=Usuarios&accion=Listar").forward(request, response);
                         } else if (estado.equals("I")) {
                             Usuariodao.conectarUsuario(id);
+                            request.setAttribute("msg", "usConec");
                             request.getRequestDispatcher("Usuarios_srv?menu=Usuarios&accion=Listar").forward(request, response);
                         }
                     } else {
                         if (estado.equals("A")) {
                             Usuariodao.desconectarUsuario(id);
-                            request.setAttribute("mensaje", "Usuario inactivo / Sesion finalizada");
+                            request.setAttribute("msg", "sesionTerminada");
                             request.getRequestDispatcher("Usuarios_srv?menu=Usuarios&accion=Listar").forward(request, response);
                         }
                     }
@@ -118,7 +132,7 @@ public class Usuarios_srv extends HttpServlet {
                     break;
 
             }
-            request.getRequestDispatcher("usuarios.jsp").forward(request, response);
+            
         }
     }
 

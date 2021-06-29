@@ -16,7 +16,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all">
         <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
         <!-- /css files -->
-
+        <link href='images/ordenador-portatil.ico' rel='icon' >
         <!-- online fonts -->
         <link href="//fonts.googleapis.com/css?family=Sirin+Stencil" rel="stylesheet">
         <!-- online fonts -->

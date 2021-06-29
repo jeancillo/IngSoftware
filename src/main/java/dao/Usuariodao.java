@@ -187,13 +187,14 @@ public class Usuariodao {
         }
     }
     public static void guardarUsuario(Usuario us) {
-        String sql = "update usuario set user=?,password=? where idUsuario=?";
+        String sql = "update usuario set user=?,password=?,idTipoUser=? where idUsuario=?";
         Connection cn = conexion.conexion.abrir();
         try {
             PreparedStatement stm=cn.prepareStatement(sql);
             stm.setString(1,us.getUser());
             stm.setString(2, us.getPassword());
-            stm.setInt(3, us.getIdUsuario());
+            stm.setInt(3, us.getIdTipoUser());
+            stm.setInt(4, us.getIdUsuario());
             stm.executeUpdate();
             cn.close();
             stm.close();
@@ -216,7 +217,7 @@ public class Usuariodao {
         }
     }
      public static void deleteUsuario(int id) {
-        String sql = "delete from usuario where idPersonal=?";
+        String sql = "delete from usuario where idUsuario=?";
         Connection cn = conexion.conexion.abrir();
         try {
             PreparedStatement stm=cn.prepareStatement(sql);

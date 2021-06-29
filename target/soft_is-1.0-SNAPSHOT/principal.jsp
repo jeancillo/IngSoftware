@@ -1,3 +1,5 @@
+<%@page import="dao.TipoUsuariodao"%>
+<%@page import="modelo.TipoUsuario"%>
 <%@page import="dao.Personaldao"%>
 <%@page import="modelo.Personal"%>
 <%@page import="modelo.Usuario"%>
@@ -17,10 +19,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link href="css/style_1.css" rel="stylesheet" type="text/css" media="all"/>
-        <link href='//fonts.googleapis.com/css?family=Electrolize' rel='stylesheet' type='text/css'>
-        <script type="text/javascript" src="js/jquery.min.js"></script>
-        <script type="text/javascript" src="js/modernizr.custom.28468.js"></script>
 
+        <link href='//fonts.googleapis.com/css?family=Electrolize' rel='stylesheet' type='text/css'>
+        <link href='images/ordenador-portatil.ico' rel='icon' >
+        <script type="text/javascript" src="js/modernizr.custom.28468.js"></script>
+        <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript">
             jQuery(document).ready(function ($) {
                 $(".scroll").click(function (event) {
@@ -29,7 +32,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 });
             });
         </script>
-        <script>
+        <script type="text/javascript">
             //funcion para no volver al index
             window.onload = function (){
                 window.location.hash="";
@@ -59,8 +62,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 });
             });
         </script>
+
     </head>
     <body>
+        
+        <style type="text/css">
+            ul.dropdown-menu {
+                background-color: gray;
+            }
+        </style>
         <%
             HttpSession s = request.getSession();
             Usuario us = (Usuario) s.getAttribute("us");
@@ -70,6 +80,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             }%><%else {
                     response.setHeader("Cache-Control", "no-cache,no-store,must-revalidate");
                     Personal p = Personaldao.listarPersonalXId(us.getIdPersonal());
+                    TipoUsuario tp = TipoUsuariodao.listarTiposXId(us.getIdTipoUser());
         %>
         <div class="header">
             <div class="header_top">
@@ -82,10 +93,26 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             <li class="active"><a href="principal.jsp">Inicio</a></li>
                             <li><a href="Personal_srv?menu=Personal&accion=Listar">Personal</a></li>
                             <li><a href="Usuarios_srv?menu=Usuarios&accion=Listar">Usuarios</a></li>
-                            <li><a href="#">Support</a></li>
-                            <li><a href="#">Contact</a></li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Registro
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <a class="dropdown-item" href="Cliente_srv?menu=Cliente&accion=Listar">Cliente</a>
+                                    <a class="dropdown-item" href="Servicio_srv?menu=Servicio&accion=Listar">Servicio</a>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Mantenimiento
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <a class="dropdown-item" href="Torre_srv?menu=Torre&accion=Listar">Torre</a>
+                                    <a class="dropdown-item" href="Servidor_srv?menu=Servidor&accion=Listar">Servidor</a>
+                                    <a class="dropdown-item" href="Antena_srv?menu=Antena&accion=Listar">Antena</a>
+                                </ul>
+                            </li>
                             <li><a href="CerrarSesion_srv?btn=true">Cerrar Sesion</a></li>
-                            
                             <div class="clear"></div>
                         </ul>
                     </div>
@@ -93,101 +120,112 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 </div>
             </div>
             <div class="header_bottom">
+                <div class="slider">
+                    <div class="wrap">
+                        <div  id="top" class="callbacks_container">
+                            <div class="services_heading">
+                                <h2>BIENVENIDO <%=p.getNombre()%> <%=p.getApellidoPaterno()%></h2>
+                                <p><%=tp.getTipoUser()%></p>
 
+                            </div>
+                            <ul class="rslides" id="slider3">
+                                <li>
+                                    <div class="da-slide">
+                                        <div class="slide-text">
+                                            <h2><span>VISION</span></h2>
+                                            <p>Ser una empresa líder en el mercado de las telecomunicaciones con innovación, servicio y dedicación a sus clientes, liderando la preferencia en la provisión de servicios de última tecnología e Internet en el país, con recursos técnicos, financieros y humanos calificados</p>
+                                        </div>
+                                        <div class="da-img"><img src="images/2.png" alt="image01" /></div>
+                                        <div class="clear"></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="da-slide">
+                                        <div class="slide-text">
+                                            <h2><span>MISION</span></h2>
+                                            <p>Proveer del acceso a las tecnologías de la información usando infraestructura de telecomunicaciones de última generación, gestionado por personal altamente calificado para brindar un servicio acorde a las necesidades de nuestros usuarios, comprometidos al desarrollo del país y orientados a superar los desniveles culturales, económicos y sociales.</p>		
+
+                                        </div>
+                                        <div class="da-img"><img src="images/1.png" alt="image01" /></div>
+                                        <div class="clear"></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="da-slide">
+                                        <div class="slide-text">
+                                            <h2><span>PROPOSITO</span></h2>
+                                            <p>Proveer del servicio de acceso a Internet, diseño e implementación de sistemas de telecomunicaciones acorde a las necesidades del cliente, con tecnología de punta y sin limitaciones geográficas.
+                                                Nuestros servicios son especialmente diseñados para cubrir las necesidades de comunicación, enfocados en usuarios particulares y empresariales, con una atención personalizada que le aseguran confiabilidad y seriedad en nuestros servicios.</p>		
+
+                                        </div>
+                                        <div class="da-img"><img src="images/3.png" alt="image01" /></div>
+                                        <div class="clear"></div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
                 <div class="clear"></div>
             </div>
-        </div>
-
+            <div class="clear"></div>
+        </div><br>
         <div class="main">
-
-            <div class="content_data">
-                <div class="content">     		
-                    <div class="services_heading">
-                        <h2>BIENVENIDO</h2>
-                        <p><%=p.getNombre()%> <%=p.getApellido()%></p>
+            <div class="content_top">
+                <div class="wrap">
+                    <div class="ptables">
+                        <ul class="green pricing jcarousel-list jcarousel-list-horizontal">
+                            <li>
+                                <ul>
+                                    <li class="title"><h3>PLAN BASICO</h3><h4>S/50<small>/mes</small></h4></li>
+                                    <li>ANCHO DE BANDA</li>
+                                    <li>512 Kbps</li>
+                                    <li>FRECUENCIA</li>
+                                    <li>2.4 GHZ</li>
+                                    <li><a href="Cliente_srv?menu=Cliente&accion=Listar&banda=512 Kbps&frec=2.4 GHz">Comprar</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <ul>
+                                    <li class="title"><h3>PLAN MEDIO</h3><h4>S/75<small>/mes</small></h4></li>
+                                    <li>ANCHO DE BANDA</li>
+                                    <li>1 Mbps</li>
+                                    <li>FRECUENCIA</li>
+                                    <li>2.4 GHZ</li>
+                                    <li><a href="Cliente_srv?menu=Cliente&accion=Listar&banda=1 Mbps&frec=2.4 GHz" >Comprar</a></li>
+                                </ul>
+                            </li>               
+                            <li>
+                                <ul>
+                                    <li class="title"><h3>PLAN EJECUTIVO</h3><h4>S/100<small>/mes</small></h4></li>
+                                    <li>ANCHO DE BANDA</li>
+                                    <li>1 Mbps</li>
+                                    <li>FRECUENCIA</li>
+                                    <li>5.8 GHZ</li>
+                                    <li><a href="Cliente_srv?menu=Cliente&accion=Listar&banda=1 Mbps&frec=5.8 GHz" >Comprar</a></li>
+                                </ul>
+                            </li>        
+                            <li>
+                                <ul>
+                                    <li class="title"><h3>PLAN PREMIER</h3><h4>S/125<small>/mes</small></h4></li>
+                                    <li>ANCHO DE BANDA</li>
+                                    <li>2 Mbps</li>
+                                    <li>FRECUENCIA</li>
+                                    <li>5.8 GHZ</li>
+                                    <li><a href="Cliente_srv?menu=Cliente&accion=Listar&banda=2 Mbps&frec=5.8 GHz" >Comprar</a></li>
+                                </ul>
+                            </li>   
+                            <div class="clear"></div>          
+                        </ul>
                     </div>
-                    <div class="wrap">
-                        <div class="services">
-                            <div class="services_list">
-                                <div class="services_grid1">	
-                                    <div class="services_img">
-                                        <a href="Personal_srv?menu=Personal&accion=Listar"><img src="images/perfil.png" alt="" /></a>
-                                    </div>
-                                    <div class="services_desc">
-                                        <h4>Personal</h4>
-                                        <p>simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting.</p>
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>
-                                <div class="services_grid2">	
-                                    <div class="services_img">
-                                        <a href="Usuarios_srv?menu=Usuarios&accion=Listar"><img src="images/usuario.png" alt="" /></a>
-                                    </div>
-                                    <div class="services_desc">
-                                        <h4>Usuarios</h4>
-                                        <p>simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting.</p>
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                            <div class="services_list">
-                                <div class="services_grid1">	
-                                    <div class="services_img">
-                                        <img src="images/pagar.png" alt="" />
-                                    </div>
-                                    <div class="services_desc">
-                                        <h4>Pagos</h4>
-                                        <p>simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting</p>
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>
-                                <div class="services_grid2">	
-                                    <div class="services_img">
-                                        <img src="images/cortando-papel.png" alt="" />
-                                    </div>
-                                    <div class="services_desc">
-                                        <h4>Cortes</h4>
-                                        <p>simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting</p>
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                            <div class="services_list">
-                                <div class="services_grid1">	
-                                    <div class="services_img">
-                                        <img src="images/inmigracion.png" alt="" />
-                                    </div>
-                                    <div class="services_desc">
-                                        <h4>Reportes</h4>
-                                        <p>simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting.</p>
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>
-                                <div class="services_grid2">	
-                                    <div class="services_img">
-                                        <img src="images/mantenimiento-web.png" alt="" />
-                                    </div>
-                                    <div class="services_desc">
-                                        <h4>Mantenimiento</h4>
-                                        <p>simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting.</p>
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                        </div>
-                    </div>    	
-                </div>
-            </div>    
+                </div>        
+            </div>
         </div>
         <div class="copy_right">
-            <p> &copy; 2013 Retail_hosting. All rights reserved |  <%=p.getNombre()%> <%=p.getApellido()%> <a href="CerrarSesion_srv?btn=true">Salir</a></p>
+            <p> © 2021 VILLA FLASH NET . All rights reserved |  <%=p.getNombre()%> <%=p.getApellidoPaterno()%> <a href="CerrarSesion_srv?btn=true">Salir</a></p>
         </div>
         <%}
         %>
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     </body>

@@ -6,10 +6,28 @@ import java.io.InputStream;
 public class Personal {
     private int idPersonal;
     private String nombre;
-    private String apellido;
+    private String apellidoPaterno;
+    private String apellidoMaterno;
     private String dni;
     private InputStream img;
 
+    public String getApellidoPaterno() {
+        return apellidoPaterno;
+    }
+
+    public void setApellidoPaterno(String apellidoPaterno) {
+        this.apellidoPaterno = apellidoPaterno;
+    }
+
+    public String getApellidoMaterno() {
+        return apellidoMaterno;
+    }
+
+    public void setApellidoMaterno(String apellidoMaterno) {
+        this.apellidoMaterno = apellidoMaterno;
+    }
+    
+    
     public InputStream getImg() {
         return img;
     }
@@ -17,6 +35,7 @@ public class Personal {
     public void setImg(InputStream img) {
         this.img = img;
     }
+
 
     public int getIdPersonal() {
         return idPersonal;
@@ -34,20 +53,15 @@ public class Personal {
         this.nombre = nombre;
     }
 
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
     public String getDni() {
         return dni;
     }
 
     public void setDni(String dni) {
         this.dni = dni;
+    }
+
+    public Personal() {
     }
     
     

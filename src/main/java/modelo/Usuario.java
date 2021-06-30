@@ -7,8 +7,18 @@ public class Usuario {
     private String password;
     private int idPersonal;
     private int idTipoUser;
+    private String codRecuperacion;
     private String estado;
 
+    public String getCodRecuperacion() {
+        return codRecuperacion;
+    }
+
+    public void setCodRecuperacion(String codRecuperacion) {
+        this.codRecuperacion = codRecuperacion;
+    }
+
+    
     public String getEstado() {
         return estado;
     }

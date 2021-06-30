@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="modelo.Usuario"%>
 <!--Author: W3layouts
 Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
@@ -15,18 +17,100 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all">
         <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
         <!-- /css files -->
-
+        <link href='images/ordenador-portatil.ico' rel='icon' >
         <!-- online fonts -->
         <link href="//fonts.googleapis.com/css?family=Sirin+Stencil" rel="stylesheet">
         <!-- online fonts -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="sweetalert2/dist/sweetalert2.all.min.js"></script>
 
     <body>
-        <%String msg = (String) request.getAttribute("msg");%>
+        
+        <script>
+            //funcion para no volver al index
+            window.onload = function () {
+                window.location.hash = "";
+                window.location.hash = "Again-No-back-button"
 
+                window.onhashchange = function () {
+                    window.location.hash = ""
+                }
+            }
+        </script>
+        <c:if test="${not empty msg}">
+            <c:if test="${msg==true}">
+                <script type="text/javascript">
+                    Swal.fire({
+                        title: 'USUARIO IDENTIFICADO CORRECTAMENTE',
+                        icon: 'success',
+                        text: 'Los datos ingresados son correctos',
+                        showCancelButton: true,
+                        showCancelButton: false,
+                        confirmButtonText: `OK`,
+                    }).then((result) => {
+                        /* Read more about isConfirmed, isDenied below */
+                        if (result.isConfirmed) {
+                            window.location = 'principal.jsp';
+                        }
+                    })
+                </script>  
+            </c:if>
+            <c:if test="${msg==false}">
+                <script type="text/javascript">
+                    Swal.fire({
+                        title: 'USUARIO INCORRECTO',
+                        text: 'Los datos ingresados son incorrectos',
+                        icon: 'error',
+                        showCancelButton: true,
+                        showCancelButton: false,
+                        confirmButtonText: `OK`,
+                    }).then((result) => {
+                        /* Read more about isConfirmed, isDenied below */
+                        if (result.isConfirmed) {
+                            window.location = 'index.jsp';
+                        }
+                    })
+                </script>
+            </c:if>
+            <c:if test="${msg=='recup'}">
+                <script type="text/javascript">
+                    Swal.fire({
+                        title: 'DATOS DE RECUPERACION',
+                        icon: 'info',
+                        text: 'La contraseña se ha reestablecido a sus datos de fabrica',
+                        showCancelButton: true,
+                        showCancelButton: false,
+                        confirmButtonText: `OK`,
+                    }).then((result) => {
+                        /* Read more about isConfirmed, isDenied below */
+                        if (result.isConfirmed) {
+                            window.location = 'index.jsp';
+                        }
+                    })
+                </script>
+            </c:if>
+            <c:if test="${msg=='codNull'}">
+                <script type="text/javascript">
+                    Swal.fire({
+                        title: 'ERROR EN CODIGO DE RECUPERACION',
+                        icon: 'error',
+                        text: 'El codigo ingresado no corresponde a ningun usuario',
+                        showCancelButton: true,
+                        showCancelButton: false,
+                        confirmButtonText: `OK`,
+                    }).then((result) => {
+                        /* Read more about isConfirmed, isDenied below */
+                        if (result.isConfirmed) {
+                            window.location = 'index.jsp';
+                        }
+                    })
+                </script>
+            </c:if>
+        </c:if>
         <div class="container demo-1">
             <div class="content">
                 <div id="large-header" class="large-header">
-                    <h1>Bienvenido a Villa Flash Net</h1>
+                    <h1><marquee>Bienvenido a Villa Flash Net</marquee></h1><br><br> 
                     <div class="main-agileits">
                         <!--form-stars-here-->
                         <div class="form-w3-agile">
@@ -39,40 +123,21 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                     </div>
                                 </div>
                                 <div class="form-sub-w3">
-                                    <input type="password" name="pass" placeholder="Password" required="" />
+                                    <input id = "pas" type="password" name="pass" placeholder="Password" required="" />
                                     <div class="icon-w3">
                                         <i class="fa fa-unlock-alt" aria-hidden="true"></i>
                                     </div>
                                 </div>
+                               
                                 <div class="clear"></div>
-                                <p class="p-bottom-w3ls"><a class href="#"></a></p>
+                                <p class="p-bottom-w3ls">¿Has olvidado tu contraseña?<a class href="Password_srv?accion=Formulario">  Click Aqui</a></p>
                                 <p class="p-bottom-w3ls1"><a class href="#"></a></p>
                                 <div class="clear"></div>
-                                <div>
-                                    <label style="font-size: 12px; color: red">
-                                        <!--- mensaje  de error-->
-                                        <span class="msg"><%=msg != null ? msg : ""%></span>
-                                    </label>  
-                                </div>
                                 <div class="submit-w3l">
                                     <input type="submit" name="accion" value="Login">
                                 </div>
                                 <div class="clear"></div>
                             </form>
-                            <div class="social w3layouts">
-                                <div class="heading">
-                                    <h5>Or Login with</h5>
-                                    <div class="clear"></div>
-                                </div>
-                                <div class="icons">
-                                    <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                    <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    <a href="#"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a>
-                                    <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
-                                    <div class="clear"></div>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
                         </div>
                         <!--//form-ends-here-->
                     </div><!-- copyright -->
@@ -83,6 +148,5 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 </div>
             </div>
         </div>	
-
-    </body>
+    </body> 
 </html>

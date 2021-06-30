@@ -33,9 +33,15 @@ public class CerrarSesion_srv extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        String btn = request.getParameter("btn");
+        if(btn.equals("true")){
         HttpSession session = request.getSession();
         session.removeAttribute("us");
+        session.invalidate();   
         request.getRequestDispatcher("index.jsp").forward(request, response);
+        }else{
+        request.getRequestDispatcher("principal.jsp").forward(request, response);    
+        }  
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

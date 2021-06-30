@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 C:\Users\Public\Documents\Entorno de red\Desktop\Proyecto_I.SOFTWARE\IngSoftware_FORK\IngSoftware\src\main\java\dao\Personaldao.java
 C:\Users\Public\Documents\Entorno de red\Desktop\Proyecto_I.SOFTWARE\IngSoftware_FORK\IngSoftware\src\main\java\controlador\Error_srv.java
 C:\Users\Public\Documents\Entorno de red\Desktop\Proyecto_I.SOFTWARE\IngSoftware_FORK\IngSoftware\src\main\java\controlador\Login_srv.java
@@ -11,3 +12,42 @@ C:\Users\Public\Documents\Entorno de red\Desktop\Proyecto_I.SOFTWARE\IngSoftware
 C:\Users\Public\Documents\Entorno de red\Desktop\Proyecto_I.SOFTWARE\IngSoftware_FORK\IngSoftware\src\main\java\modelo\Usuario.java
 C:\Users\Public\Documents\Entorno de red\Desktop\Proyecto_I.SOFTWARE\IngSoftware_FORK\IngSoftware\src\main\java\controlador\Personal_srv.java
 C:\Users\Public\Documents\Entorno de red\Desktop\Proyecto_I.SOFTWARE\IngSoftware_FORK\IngSoftware\src\main\java\controlador\Img_srv.java
+=======
+C:\Users\PIERO\OneDrive\Documentos\NetBeansProjects\soft_is\src\main\java\controlador\Error_srv.java
+C:\Users\PIERO\OneDrive\Documentos\NetBeansProjects\soft_is\src\main\java\controlador\Cliente_srv.java
+C:\Users\PIERO\OneDrive\Documentos\NetBeansProjects\soft_is\src\main\java\modelo\Usuario.java
+C:\Users\PIERO\OneDrive\Documentos\NetBeansProjects\soft_is\src\main\java\modelo\Personal.java
+C:\Users\PIERO\OneDrive\Documentos\NetBeansProjects\soft_is\src\main\java\controlador\Servicio_srv.java
+C:\Users\PIERO\OneDrive\Documentos\NetBeansProjects\soft_is\src\main\java\modelo\Cliente.java
+C:\Users\PIERO\OneDrive\Documentos\NetBeansProjects\soft_is\src\main\java\controlador\Servidor_srv.java
+C:\Users\PIERO\OneDrive\Documentos\NetBeansProjects\soft_is\src\main\java\controlador\Torre_srv.java
+C:\Users\PIERO\OneDrive\Documentos\NetBeansProjects\soft_is\src\main\java\controlador\Usuarios_srv.java
+C:\Users\PIERO\OneDrive\Documentos\NetBeansProjects\soft_is\src\main\java\dao\Clientedao.java
+C:\Users\PIERO\OneDrive\Documentos\NetBeansProjects\soft_is\src\main\java\controlador\Personal_srv.java
+C:\Users\PIERO\OneDrive\Documentos\NetBeansProjects\soft_is\src\main\java\modelo\Fecha.java
+C:\Users\PIERO\OneDrive\Documentos\NetBeansProjects\soft_is\src\main\java\modelo\Torre.java
+C:\Users\PIERO\OneDrive\Documentos\NetBeansProjects\soft_is\src\main\java\controlador\Password_srv.java
+C:\Users\PIERO\OneDrive\Documentos\NetBeansProjects\soft_is\src\main\java\dao\Personaldao.java
+C:\Users\PIERO\OneDrive\Documentos\NetBeansProjects\soft_is\src\main\java\dao\Serviciodao.java
+C:\Users\PIERO\OneDrive\Documentos\NetBeansProjects\soft_is\src\main\java\modelo\Servidor.java
+C:\Users\PIERO\OneDrive\Documentos\NetBeansProjects\soft_is\src\main\java\dao\Antenadao.java
+C:\Users\PIERO\OneDrive\Documentos\NetBeansProjects\soft_is\src\main\java\modelo\Antena.java
+C:\Users\PIERO\OneDrive\Documentos\NetBeansProjects\soft_is\src\main\java\dao\MarcaAntenadao.java
+C:\Users\PIERO\OneDrive\Documentos\NetBeansProjects\soft_is\src\main\java\controlador\Login_srv.java
+C:\Users\PIERO\OneDrive\Documentos\NetBeansProjects\soft_is\src\main\java\dao\EstadoClientedao.java
+C:\Users\PIERO\OneDrive\Documentos\NetBeansProjects\soft_is\src\main\java\controlador\CerrarSesion_srv.java
+C:\Users\PIERO\OneDrive\Documentos\NetBeansProjects\soft_is\src\main\java\modelo\MarcaAntena.java
+C:\Users\PIERO\OneDrive\Documentos\NetBeansProjects\soft_is\src\main\java\modelo\TipoAntena.java
+C:\Users\PIERO\OneDrive\Documentos\NetBeansProjects\soft_is\src\main\java\controlador\Antena_srv.java
+C:\Users\PIERO\OneDrive\Documentos\NetBeansProjects\soft_is\src\main\java\modelo\EstadoCliente.java
+C:\Users\PIERO\OneDrive\Documentos\NetBeansProjects\soft_is\src\main\java\dao\TipoUsuariodao.java
+C:\Users\PIERO\OneDrive\Documentos\NetBeansProjects\soft_is\src\main\java\modelo\TipoUsuario.java
+C:\Users\PIERO\OneDrive\Documentos\NetBeansProjects\soft_is\src\main\java\conexion\conexion.java
+C:\Users\PIERO\OneDrive\Documentos\NetBeansProjects\soft_is\src\main\java\modelo\MD5.java
+C:\Users\PIERO\OneDrive\Documentos\NetBeansProjects\soft_is\src\main\java\dao\Usuariodao.java
+C:\Users\PIERO\OneDrive\Documentos\NetBeansProjects\soft_is\src\main\java\dao\TipoAntenadao.java
+C:\Users\PIERO\OneDrive\Documentos\NetBeansProjects\soft_is\src\main\java\dao\Servidordao.java
+C:\Users\PIERO\OneDrive\Documentos\NetBeansProjects\soft_is\src\main\java\controlador\Img_srv.java
+C:\Users\PIERO\OneDrive\Documentos\NetBeansProjects\soft_is\src\main\java\dao\Torredao.java
+C:\Users\PIERO\OneDrive\Documentos\NetBeansProjects\soft_is\src\main\java\modelo\Servicio.java
+>>>>>>> upstream/master

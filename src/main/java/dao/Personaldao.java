@@ -28,7 +28,8 @@ public class Personaldao {
                 p = new Personal();
                 p.setIdPersonal(rs.getInt("idPersonal"));
                 p.setNombre(rs.getString("nombre"));
-                p.setApellido(rs.getString("apellido"));
+                p.setApellidoPaterno(rs.getString("apellidoPaterno"));
+                p.setApellidoMaterno(rs.getString("apellidoMaterno"));
                 p.setDni(rs.getString("dni"));
                 p.setImg(rs.getBinaryStream("img"));
             }
@@ -51,7 +52,8 @@ public class Personaldao {
                  p = new Personal();
                 p.setIdPersonal(rs.getInt("idPersonal"));
                 p.setNombre(rs.getString("nombre"));
-                p.setApellido(rs.getString("apellido"));
+                p.setApellidoPaterno(rs.getString("apellidoPaterno"));
+                p.setApellidoMaterno(rs.getString("apellidoMaterno"));
                 p.setDni(rs.getString("dni"));
                 p.setImg(rs.getBinaryStream("img"));   
                 lista.add(p);
@@ -77,7 +79,8 @@ public class Personaldao {
                 p = new Personal();
                 p.setIdPersonal(rs.getInt("idPersonal"));
                 p.setNombre(rs.getString("nombre"));
-                p.setApellido(rs.getString("apellido"));
+                p.setApellidoPaterno(rs.getString("apellidoPaterno"));
+                p.setApellidoMaterno(rs.getString("apellidoMaterno"));
                 p.setDni(rs.getString("dni"));
                 p.setImg(rs.getBinaryStream("img"));
             }
@@ -91,14 +94,15 @@ public class Personaldao {
     }
     
     public static void insertarPersonal(Personal p) {
-        String sql = "insert into personal (nombre,apellido,dni,img)values(?,?,?,?)";
+        String sql = "insert into personal (nombre,apellidoPaterno,apellidoMaterno,dni,img)values(?,?,?,?,?)";
         Connection cn = conexion.conexion.abrir();
         try {
             PreparedStatement stm=cn.prepareStatement(sql);
             stm.setString(1,p.getNombre());
-            stm.setString(2, p.getApellido());
-            stm.setString(3, p.getDni());
-            stm.setBlob(4, p.getImg());
+            stm.setString(2, p.getApellidoPaterno());
+            stm.setString(3, p.getApellidoMaterno());
+            stm.setString(4, p.getDni());
+            stm.setBlob(5, p.getImg());
             stm.executeUpdate();
             cn.close();
             stm.close();
@@ -107,14 +111,15 @@ public class Personaldao {
         }
     }
     public static void guardarPersonal(Personal p) {
-        String sql = "update personal set nombre=?,apellido=?,dni=? where idPersonal=?";
+        String sql = "update personal set nombre=?,apellidoPaterno=?,apellidoMaterno=?,dni=? where idPersonal=?";
         Connection cn = conexion.conexion.abrir();
         try {
             PreparedStatement stm=cn.prepareStatement(sql);
             stm.setString(1,p.getNombre());
-            stm.setString(2, p.getApellido());
-            stm.setString(3, p.getDni());
-            stm.setInt(4, p.getIdPersonal());
+           stm.setString(2, p.getApellidoPaterno());
+            stm.setString(3, p.getApellidoMaterno());
+            stm.setString(4, p.getDni());
+            stm.setInt(5, p.getIdPersonal());
             stm.executeUpdate();
             cn.close();
             stm.close();
